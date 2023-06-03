@@ -1,0 +1,14 @@
+
+
+# Define the Python function
+def create_dict(row, sample_col):
+    format_values = [x + "_" + sample_col for x in row['FORMAT'].split(':')]
+    sample_values = row[sample_col].split(':')
+    result_dict = {key: value if value != '' else 'NA' for key, value in zip(format_values, sample_values)}
+    return result_dict
+
+
+
+# Apply the function to the DataFrame and save the output to a new DataFrame
+new_df = pd.DataFrame(df.apply(create_dict, axis=1, sample_col='Sample1').tolist())
+
